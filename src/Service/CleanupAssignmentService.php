@@ -40,7 +40,7 @@ class CleanupAssignmentService
         return $count;
     }
 
-    private function isAssignmentsOverlapping(Assignment $assignment1, Assignment $assignment2):bool
+    private function isAssignmentsOverlapping(Assignment $assignment1, Assignment $assignment2): bool
     {
         return $assignment1->start <= $assignment2->end && $assignment1->end >= $assignment2->start;
     }
@@ -52,18 +52,16 @@ class CleanupAssignmentService
 
     private function getAssignmentsFromRawPair(string $rawPair): array
     {
-        $stringAssignments = explode(",", trim($rawPair));
-        $ranges1 = explode('-', $stringAssignments[0]);
-        $ranges2 = explode('-', $stringAssignments[1]);
-
+        $regex = '/(\d+)-(\d+),(\d+)-(\d+)/';
+        preg_match($regex, $rawPair, $matches);
         return [
             new Assignment(
-                start: (int)$ranges1[0],
-                end: (int)$ranges1[1]
+                start: (int)$matches[1],
+                end: (int)$matches[2]
             ),
             new Assignment(
-                start: (int)$ranges2[0],
-                end: (int)$ranges2[1]
+                start: (int)$matches[3],
+                end: (int)$matches[4]
             ),
         ];
     }
