@@ -15,8 +15,7 @@ class Day07_WhoNeedsTrees
 
     public function getTotalSizeOfSmallFolders(): int
     {
-        $files = $this->listAllFiles();
-        $folders = $this->initializeFoldersFromFiles($files);
+        list($files, $folders) = $this->listAllFiles();
         $this->calculateFoldersSizes($folders, $files);
 
         // Filter by size.
@@ -30,8 +29,7 @@ class Day07_WhoNeedsTrees
 
     public function getSizeOfFolderToDelete(): int
     {
-        $files = $this->listAllFiles();
-        $folders = $this->initializeFoldersFromFiles($files);
+        list($files, $folders) = $this->listAllFiles();
         $this->calculateFoldersSizes($folders, $files);
 
         $usedSpace = $folders['/'];
@@ -43,18 +41,6 @@ class Day07_WhoNeedsTrees
             if ($size >= $spaceToDelete && $size < $smallest) $smallest = $size;
         }
         return $smallest;
-    }
-
-    private function initializeFoldersFromFiles(array $files): array
-    {
-        $folders = [];
-
-        //Initialize folders list
-        foreach ($files as $path => $value) {
-            $dir = substr($path, 0, strrpos($path, "/") + 1);
-            $folders[$dir] = 0;
-        }
-        return $folders;
     }
 
     private function calculateFoldersSizes(array &$folders, array $files): void
@@ -74,8 +60,11 @@ class Day07_WhoNeedsTrees
         $handle = fopen(self::DATA_PATH, 'r');
         fgets($handle);
         $files = [];
+        $folders = [];
         $currentDir = '/';
         $files[$currentDir] = 0;
+        $folders[$currentDir] = 0;
+
         $regex = "/(\d+) (.*)/";
         while (($line = fgets($handle)) !== false) {
             $line = trim($line);
@@ -86,6 +75,7 @@ class Day07_WhoNeedsTrees
                 } else {
                     $currentDir .= $destDir . '/';
                     $files[$currentDir] = 0;
+                    $folders[$currentDir] = 0;
                 }
             } elseif (preg_match($regex, $line, $matches) === 1) {
                 $size = $matches[1];
@@ -93,6 +83,6 @@ class Day07_WhoNeedsTrees
                 $files[$currentDir . $name] = $size;
             }
         }
-        return $files;
+        return [$files, $folders];
     }
 }
