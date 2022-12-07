@@ -7,6 +7,7 @@ use App\Solvers\Day04_CleanupPairs;
 use App\Solvers\Day05_Stacks;
 use App\Solvers\Day06_Datastream;
 use App\Solvers\Day07_FolderParser;
+use App\Solvers\Day07_WhoNeedsTrees;
 
 require 'classLoader.php';
 
@@ -34,10 +35,16 @@ require 'classLoader.php';
 // displayResult($solver->getIndexOfStartOfPacket());
 // displayResult($solver->getIndexOfStartOfMessage());
 
-$solver = new Day07_FolderParser;
+// $solver = new Day07_FolderParser;
 // displayResult($solver->getTotalSizeOfSmallFolders());
-displayResult($solver->getSizeOfFolderToDelete());
+// displayResult($solver->getSizeOfFolderToDelete());
 
-function displayResult($result){
+// $solver = new Day07_WhoNeedsTrees;
+// displayResult($solver->getTotalSizeOfSmallFolders());
+// displayResult($solver->getSizeOfFolderToDelete());
+
+
+function displayResult($result)
+{
     echo "Result : $result\n";
 }
