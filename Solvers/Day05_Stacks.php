@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
 use App\Entity\RearrangementInstruction;
 
-class StacksService
+class Day05_Stacks
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/05-stacks.txt';
+    const DATA_PATH = __DIR__ . '/../assets/05-stacks.txt';
     const MAX_HEIGHT = 8;
     const NUMBER_OF_STACKS = 9;
 

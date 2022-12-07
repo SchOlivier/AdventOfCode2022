@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
-class RucksackService
+class Day03_Rucksack
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/03-rucksacks.txt';
+    const DATA_PATH = __DIR__ . '/../assets/03-rucksacks.txt';
 
     public function getTotalPriorityOfItemsInBothCompartments(): int
     {

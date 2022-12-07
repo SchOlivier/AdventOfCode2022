@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
-class DatastreamService
+class Day06_Datastream
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/06-datastream.txt';
+    const DATA_PATH = __DIR__ . '/../assets/06-datastream.txt';
 
     public function getIndexOfStartOfPacket()
     {

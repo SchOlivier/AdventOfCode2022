@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
-class RockPaperScissorsService
+class Day02_RockPaperScissors
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/02-RockPaperScissors.txt';
+    const DATA_PATH = __DIR__ . '/../assets/02-RockPaperScissors.txt';
 
     public function getScoreWithDeterminedChoices()
     {

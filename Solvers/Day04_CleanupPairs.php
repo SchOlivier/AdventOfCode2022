@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
 use App\Entity\Assignment;
 
-class CleanupAssignmentService
+class Day04_CleanupPairs
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/04-cleanupAssignments.txt';
+    const DATA_PATH = __DIR__ . '/../assets/04-cleanupAssignments.txt';
 
     public function countFullyContainedAssignments(): int
     {

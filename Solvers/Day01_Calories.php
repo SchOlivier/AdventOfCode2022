@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Solvers;
 
-class CalorieService
+class Day01_Calories
 {
 
-    const DATA_PATH = __DIR__ . '/../../assets/01-ElvesAndCalories.txt';
+    const DATA_PATH = __DIR__ . '/../assets/01-ElvesAndCalories.txt';
 
     public function findMaxCalories()
     {
