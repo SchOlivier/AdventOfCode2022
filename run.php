@@ -6,6 +6,7 @@ use App\Solvers\Day03_Rucksack;
 use App\Solvers\Day04_CleanupPairs;
 use App\Solvers\Day05_Stacks;
 use App\Solvers\Day06_Datastream;
+use App\Solvers\Day07_FolderParser;
 
 require 'classLoader.php';
 
@@ -33,6 +34,10 @@ require 'classLoader.php';
 // displayResult($solver->getIndexOfStartOfPacket());
 // displayResult($solver->getIndexOfStartOfMessage());
 
+$solver = new Day07_FolderParser;
+// displayResult($solver->getTotalSizeOfSmallFolders());
+displayResult($solver->getSizeOfFolderToDelete());
+
 function displayResult($result){
-    echo "\nResult : $result\n";
+    echo "Result : $result\n";
 }
