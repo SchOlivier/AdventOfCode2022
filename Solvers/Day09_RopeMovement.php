@@ -13,33 +13,9 @@ class Day09_RopeMovement
     const LEFT = 'L';
     const RIGHT = 'R';
 
-    private Position $tail;
-
-    public function __construct()
+    public function countVisitedPositions($nbKnots)
     {
-    }
-
-    public function countVisitedPositions()
-    {
-        $head = new Position(0, 0);
-        $tail = new Position(0, 0);
-        $visitedPositions[$tail->__toString()] = 1;
-        $handle = fopen(self::DATA_PATH, 'r');
-        while (($line = fgets($handle)) !== false) {
-            list($direction, $nbMoves) = explode(" ", trim($line));
-            while ($nbMoves > 0) {
-                $nbMoves--;
-                $this->moveHead($head, $direction);
-                $this->updateTailPosition($head, $tail);
-                $visitedPositions[$tail->__toString()] = 1;
-            }
-        }
-        return count($visitedPositions);
-    }
-
-    public function countVisitedPositionsWith10Knots()
-    {
-        for ($i = 0; $i < 10; $i++)
+        for ($i = 0; $i < $nbKnots; $i++)
         {
             $knots[$i] = new Position(0,0);
         }
@@ -49,11 +25,11 @@ class Day09_RopeMovement
             while ($nbMoves > 0) {
                 $nbMoves--;
                 $this->moveHead($knots[0], $direction);
-                for($i = 0; $i < 9; $i++)
+                for($i = 0; $i < $nbKnots - 1 ; $i++)
                 {
                     $this->updateTailPosition($knots[$i], $knots[$i+1]);
                 }
-                $visitedPositions[$knots[9]->__toString()] = 1;
+                $visitedPositions[$knots[$nbKnots -1]->__toString()] = 1;
             }
         }
         return count($visitedPositions);

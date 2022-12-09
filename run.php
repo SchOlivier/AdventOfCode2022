@@ -50,8 +50,9 @@ require 'classLoader.php';
 // displayResult($solver->getHighestScenicScore());
 
 $solver = new Day09_RopeMovement;
-displayResult($solver->countVisitedPositions());
-displayResult($solver->countVisitedPositionsWith10Knots());
+displayResult($solver->countVisitedPositions(2));
+displayResult($solver->countVisitedPositions(10));
+// displayResult($solver->countVisitedPositionsWith10Knots());
 
 function displayResult($result)
 {
