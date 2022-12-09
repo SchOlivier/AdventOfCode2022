@@ -9,6 +9,7 @@ use App\Solvers\Day06_Datastream;
 use App\Solvers\Day07_FolderParser;
 use App\Solvers\Day07_WhoNeedsTrees;
 use App\Solvers\Day08_TreeHouse;
+use App\Solvers\Day09_RopeMovement;
 
 require 'classLoader.php';
 
@@ -44,10 +45,13 @@ require 'classLoader.php';
 // displayResult($solver->getTotalSizeOfSmallFolders());
 // displayResult($solver->getSizeOfFolderToDelete());
 
+// $solver = new Day08_TreeHouse;
+// displayResult($solver->countVisibleTrees());
+// displayResult($solver->getHighestScenicScore());
 
-$solver = new Day08_TreeHouse;
-displayResult($solver->countVisibleTrees());
-displayResult($solver->getHighestScenicScore());
+$solver = new Day09_RopeMovement;
+displayResult($solver->countVisitedPositions());
+displayResult($solver->countVisitedPositionsWith9Tails());
 
 function displayResult($result)
 {
