@@ -8,6 +8,7 @@ use App\Solvers\Day05_Stacks;
 use App\Solvers\Day06_Datastream;
 use App\Solvers\Day07_FolderParser;
 use App\Solvers\Day07_WhoNeedsTrees;
+use App\Solvers\Day08_TreeHouse;
 
 require 'classLoader.php';
 
@@ -43,6 +44,10 @@ require 'classLoader.php';
 // displayResult($solver->getTotalSizeOfSmallFolders());
 // displayResult($solver->getSizeOfFolderToDelete());
 
+
+$solver = new Day08_TreeHouse;
+displayResult($solver->countVisibleTrees());
+displayResult($solver->getHighestScenicScore());
 
 function displayResult($result)
 {

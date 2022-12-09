@@ -2,9 +2,6 @@
 
 namespace App\Solvers;
 
-use App\Entity\Folder;
-use Exception;
-
 class Day07_WhoNeedsTrees
 {
 
