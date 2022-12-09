@@ -15,7 +15,7 @@ require 'classLoader.php';
 
 // $solver = new Day01_Calories;
 // displayResult($solver->findMaxCalories());
-// displayResult($solver->findMaxCaloriesFromTopThreeElves());
+// displayResult($solver->findMaxCalories(3));
 
 // $solver = new Day02_RockPaperScissors;
 // displayResult($solver->getScoreWithDeterminedChoices());
@@ -25,9 +25,9 @@ require 'classLoader.php';
 // displayResult($solver->getTotalPriorityOfItemsInBothCompartments());
 // displayResult($solver->getTotalPriorityInGroupsOfThree());
 
-// $solver = new Day04_CleanupPairs;
-// displayResult($solver->countFullyContainedAssignments());
-// displayResult($solver->countOverlappingAssignments());
+$solver = new Day04_CleanupPairs;
+displayResult($solver->countFullyContainedAssignments());
+displayResult($solver->countOverlappingAssignments());
 
 // $solver = new Day05_Stacks;
 // displayResult($solver->getTopCratesAfterRearrangement9000());
@@ -49,10 +49,9 @@ require 'classLoader.php';
 // displayResult($solver->countVisibleTrees());
 // displayResult($solver->getHighestScenicScore());
 
-$solver = new Day09_RopeMovement;
-displayResult($solver->countVisitedPositions(2));
-displayResult($solver->countVisitedPositions(10));
-// displayResult($solver->countVisitedPositionsWith10Knots());
+// $solver = new Day09_RopeMovement;
+// displayResult($solver->countVisitedPositions(2));
+// displayResult($solver->countVisitedPositions(10));
 
 function displayResult($result)
 {

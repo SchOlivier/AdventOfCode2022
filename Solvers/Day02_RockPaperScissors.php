@@ -9,26 +9,24 @@ class Day02_RockPaperScissors
 
     public function getScoreWithDeterminedChoices()
     {
-        $handle = fopen(self::DATA_PATH, 'r');
-
-        $matchScores = $this->initMatchScoresWithDeterminedChoices();
-        $score = 0;
-        while (($line = fgets($handle)) !== false) {
-            $line = trim($line);
-            $score += $matchScores[$line];
-        }
-        return $score;
+        $matchValues = $this->initMatchScoresWithDeterminedChoices();
+        return $this->getScore($matchValues);
     }
 
-    public function getScoreWithDeterminedResult()
+    public function getScoreWithDeterminedResult(): int
+    {
+        $matchValues = $this->initMatchScoresWithDeterminedResult();
+        return $this->getScore($matchValues);
+    }
+
+    private function getScore(array $matchValues): int
     {
         $handle = fopen(self::DATA_PATH, 'r');
 
-        $matchScores = $this->initMatchScoresWithDeterminedResult();
         $score = 0;
         while (($line = fgets($handle)) !== false) {
             $line = trim($line);
-            $score += $matchScores[$line];
+            $score += $matchValues[$line];
         }
         return $score;
     }
@@ -75,15 +73,7 @@ class Day02_RockPaperScissors
      * 
      * Score is based on your choice + result of match.
      * 
-     * Choice value :
-     * rock = 1
-     * paper = 2
-     * scissors = 3
-     * 
-     * Result of match value:
-     * Loss : 0
-     * Draw : 3
-     * Win : 6
+     * Same values as above
      */
     private function initMatchScoresWithDeterminedResult()
     {

@@ -13,8 +13,8 @@ class Day03_Rucksack
         $totalPriority = 0;
         while (($line = fgets($handle)) !== false) {
             $rucksack = trim($line);
-            list($firstCompartment, $secondCompartment) = $this->getCompartments($rucksack);
-            $item = $this->findItemInBothCompartments($firstCompartment, $secondCompartment);
+            $compartments = $this->getCompartments($rucksack);
+            $item = $this->findCommonItem($compartments);
             $totalPriority += $this->getItemPriority($item);
         }
         return $totalPriority;
@@ -26,9 +26,9 @@ class Day03_Rucksack
         $totalPriority = 0;
 
         while (true) {
-            list($rucksack1, $rucksack2, $rucksack3) = $this->getNext3Rucksacks($handle);
-            if(!$rucksack1) break;
-            $item = $this->getCommonItemInThreeRucksacks($rucksack1, $rucksack2, $rucksack3);
+            $rucksacks = $this->getNext3Rucksacks($handle);
+            if (!$rucksacks[0]) break;
+            $item = $this->findCommonItem($rucksacks);
             $totalPriority += $this->getItemPriority($item);
         }
 
@@ -44,31 +44,19 @@ class Day03_Rucksack
         ];
     }
 
-    private function getCommonItemInThreeRucksacks(string $rucksack1, string $rucksack2, string $rucksack3): string
+    private function findCommonItem(array $containers): string
     {
-        $items2 = $this->getLettersInCompartment($rucksack2);
-        $items3 = $this->getLettersInCompartment($rucksack3);
-        foreach(str_split($rucksack1) as $item){
-            if(isset($items2[$item]) && isset($items3[$item])) return $item;
+        $containers = array_map(array($this,'getDistinctItemsInContainer'), $containers);
+        $commonItems = $containers[0];
+        for ($i = 1; $i < count($containers); $i++) {
+            $commonItems = array_intersect($commonItems, $containers[$i]);
         }
-        return null;
+        return implode("", $commonItems);
     }
 
-    private function findItemInBothCompartments(string $firstCompartment, string $secondCompartment): string
+    private function getDistinctItemsInContainer(string $container)
     {
-        
-        $items = $this->getLettersInCompartment($firstCompartment);
-        foreach (str_split($secondCompartment) as $item) {
-            if (isset($items[$item])) {
-                return $item;
-            }
-        }
-        return '';
-    }
-
-    private function getLettersInCompartment(string $compartment): array
-    {
-        return array_flip(str_split($compartment));
+        return array_unique(str_split($container));
     }
 
     private function getCompartments(string $rucksack): array
@@ -82,14 +70,9 @@ class Day03_Rucksack
 
     private function getItemPriority(string $item): int
     {
-        if ($this->isUpperCase($item)) {
+        if (strtoupper($item) == $item) {
             return ord($item) - ord('A') + 27;
         }
         return ord($item) - ord('a') + 1;
-    }
-
-    private function isUpperCase(string $char): bool
-    {
-        return strtoupper($char) == $char;
     }
 }

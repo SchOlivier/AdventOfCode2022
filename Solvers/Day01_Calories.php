@@ -7,40 +7,22 @@ class Day01_Calories
 
     const DATA_PATH = __DIR__ . '/../assets/01-ElvesAndCalories.txt';
 
-    public function findMaxCalories()
+    public function findMaxCalories($nbElves = 1)
     {
         $handle = fopen(self::DATA_PATH, 'r');
 
-        $maxCalories = 0;
+        $topNMaxCalories = array_fill(0, $nbElves, 0); // Sorted from lowest to highest
         $currentCalories = 0;
         while(($line = fgets($handle)) !== false){
             $line = trim($line);
             if($line == ''){
-                $maxCalories = max($maxCalories, $currentCalories);
+                $topNMaxCalories[0] = max($topNMaxCalories[0], $currentCalories);
+                sort($topNMaxCalories);
                 $currentCalories = 0;
                 continue;
             }
             $currentCalories += (int)$line;
         }
-        return $maxCalories;
-    }
-
-    public function findMaxCaloriesFromTopThreeElves()
-    {
-        $handle = fopen(self::DATA_PATH, 'r');
-
-        $topThreeMaxCalories = [0,0,0]; // Sorted from lowest to highest
-        $currentCalories = 0;
-        while(($line = fgets($handle)) !== false){
-            $line = trim($line);
-            if($line == ''){
-                $topThreeMaxCalories[0] = max($topThreeMaxCalories[0], $currentCalories);
-                sort($topThreeMaxCalories);
-                $currentCalories = 0;
-                continue;
-            }
-            $currentCalories += (int)$line;
-        }
-        return array_sum($topThreeMaxCalories);
+        return array_sum($topNMaxCalories);
     }
 }
