@@ -51,7 +51,7 @@ require 'classLoader.php';
 
 $solver = new Day09_RopeMovement;
 displayResult($solver->countVisitedPositions());
-displayResult($solver->countVisitedPositionsWith9Tails());
+displayResult($solver->countVisitedPositionsWith10Knots());
 
 function displayResult($result)
 {

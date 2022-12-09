@@ -37,10 +37,9 @@ class Day09_RopeMovement
         return count($visitedPositions);
     }
 
-    public function countVisitedPositionsWith9Tails()
+    public function countVisitedPositionsWith10Knots()
     {
-        $knots = [new Position(0,0)]; //head
-        for ($i = 1; $i < 10; $i++)
+        for ($i = 0; $i < 10; $i++)
         {
             $knots[$i] = new Position(0,0);
         }
