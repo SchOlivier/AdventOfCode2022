@@ -10,6 +10,7 @@ use App\Solvers\Day07_FolderParser;
 use App\Solvers\Day07_WhoNeedsTrees;
 use App\Solvers\Day08_TreeHouse;
 use App\Solvers\Day09_RopeMovement;
+use App\Solvers\Day10_CRT;
 
 require 'classLoader.php';
 
@@ -25,9 +26,9 @@ require 'classLoader.php';
 // displayResult($solver->getTotalPriorityOfItemsInBothCompartments());
 // displayResult($solver->getTotalPriorityInGroupsOfThree());
 
-$solver = new Day04_CleanupPairs;
-displayResult($solver->countFullyContainedAssignments());
-displayResult($solver->countOverlappingAssignments());
+// $solver = new Day04_CleanupPairs;
+// displayResult($solver->countFullyContainedAssignments());
+// displayResult($solver->countOverlappingAssignments());
 
 // $solver = new Day05_Stacks;
 // displayResult($solver->getTopCratesAfterRearrangement9000());
@@ -52,6 +53,11 @@ displayResult($solver->countOverlappingAssignments());
 // $solver = new Day09_RopeMovement;
 // displayResult($solver->countVisitedPositions(2));
 // displayResult($solver->countVisitedPositions(10));
+
+$solver = new Day10_CRT;
+displayResult($solver->getSignalStrength([20,60,100,140,180,220]));
+$solver->displayMessage();
+
 
 function displayResult($result)
 {
