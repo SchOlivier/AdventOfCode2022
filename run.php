@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\Monkey;
 use App\Solvers\Day01_Calories;
 use App\Solvers\Day02_RockPaperScissors;
 use App\Solvers\Day03_Rucksack;
@@ -11,52 +12,23 @@ use App\Solvers\Day07_WhoNeedsTrees;
 use App\Solvers\Day08_TreeHouse;
 use App\Solvers\Day09_RopeMovement;
 use App\Solvers\Day10_CRT;
+use App\Solvers\Day11_Monkeys;
 
 require 'classLoader.php';
 
-// $solver = new Day01_Calories;
-// displayResult($solver->findMaxCalories());
-// displayResult($solver->findMaxCalories(3));
+// $monkey = new Monkey(
+//     items: [79,98],
+//     leftOperand: Monkey::OLD,
+//     rightOperand: 19,
+//     operation: '*',
+//     divisibleBy: 23,
+//     sendToIfTrue: 2,
+//     sendToIfFalse: 3
+// );
 
-// $solver = new Day02_RockPaperScissors;
-// displayResult($solver->getScoreWithDeterminedChoices());
-// displayResult($solver->getScoreWithDeterminedResult());
-
-// $solver = new Day03_Rucksack;
-// displayResult($solver->getTotalPriorityOfItemsInBothCompartments());
-// displayResult($solver->getTotalPriorityInGroupsOfThree());
-
-// $solver = new Day04_CleanupPairs;
-// displayResult($solver->countFullyContainedAssignments());
-// displayResult($solver->countOverlappingAssignments());
-
-// $solver = new Day05_Stacks;
-// displayResult($solver->getTopCratesAfterRearrangement9000());
-// displayResult($solver->getTopCratesAfterRearrangement9001());
-
-// $solver = new Day06_Datastream;
-// displayResult($solver->getIndexOfStartOfPacket());
-// displayResult($solver->getIndexOfStartOfMessage());
-
-// $solver = new Day07_FolderParser;
-// displayResult($solver->getTotalSizeOfSmallFolders());
-// displayResult($solver->getSizeOfFolderToDelete());
-
-// $solver = new Day07_WhoNeedsTrees;
-// displayResult($solver->getTotalSizeOfSmallFolders());
-// displayResult($solver->getSizeOfFolderToDelete());
-
-// $solver = new Day08_TreeHouse;
-// displayResult($solver->countVisibleTrees());
-// displayResult($solver->getHighestScenicScore());
-
-// $solver = new Day09_RopeMovement;
-// displayResult($solver->countVisitedPositions(2));
-// displayResult($solver->countVisitedPositions(10));
-
-$solver = new Day10_CRT;
-displayResult($solver->getSignalStrength([20,60,100,140,180,220]));
-$solver->displayMessage();
+$solver = new Day11_Monkeys;
+$solver->playNRounds(20);
+displayResult($solver->getTwoMostActiveMonkeys());
 
 
 function displayResult($result)
