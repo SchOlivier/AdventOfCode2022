@@ -9,15 +9,11 @@ class Day11_Monkeys
     const DATA_PATH = __DIR__ . '/../assets/11-Monkeys.txt';
 
     private array $monkeys;
-
-    public function __construct()
-    {
-        $this->monkeys = $this->readInput();
-    }
+    private int $commonMultiple;
 
     public function getTwoMostActiveMonkeys()
     {
-        $nbMoved = array_map(function (Monkey $monkey){
+        $nbMoved = array_map(function (Monkey $monkey) {
             return $monkey->nbItemsInspected;
         }, $this->monkeys);
 
@@ -25,8 +21,16 @@ class Day11_Monkeys
         return $nbMoved[0] * $nbMoved[1];
     }
 
-    public function playNRounds($n)
+    public function playNRounds($n, $isGetBored = true)
     {
+        $this->monkeys = $this->readInput();
+
+        $this->commonMultiple = $isGetBored ? false : array_product(array_map(
+            function (Monkey $monkey) {
+                return $monkey->divisibleBy;
+            },
+            $this->monkeys
+        ));
         while ($n > 0) {
             $n--;
             $this->playARound();
@@ -36,19 +40,15 @@ class Day11_Monkeys
     private function playARound(): void
     {
         foreach ($this->monkeys as $i => $monkey) {
-            // echo "\n\n Tour du singe $i\n";
             $this->playATurn($monkey);
         }
     }
 
     private function playATurn(Monkey $monkey)
     {
-        while (($toMonkey = $monkey->inspectNextItem()) !== false) {
+        while (($toMonkey = $monkey->inspectNextItem($this->commonMultiple)) !== false) {
             $item = $monkey->throwItem();
-            // echo "\t Il a désormais une valeur de $item\n";
-            // echo "\t Je l'envoie au singe $toMonkey\n";
             $this->monkeys[$toMonkey]->catchItem($item);
-            // echo "\n";
         }
     }
 
@@ -57,7 +57,7 @@ class Day11_Monkeys
         $monkeys = [];
 
         $handle = fopen(self::DATA_PATH, 'r');
-        while (($line = fgets($handle))) {
+        while (($line = fgets($handle)) !== false) {
             $monkeys[] = $this->getMonkeyFromInput($handle);
         }
         return $monkeys;

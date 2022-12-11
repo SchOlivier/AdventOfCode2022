@@ -16,18 +16,12 @@ use App\Solvers\Day11_Monkeys;
 
 require 'classLoader.php';
 
-// $monkey = new Monkey(
-//     items: [79,98],
-//     leftOperand: Monkey::OLD,
-//     rightOperand: 19,
-//     operation: '*',
-//     divisibleBy: 23,
-//     sendToIfTrue: 2,
-//     sendToIfFalse: 3
-// );
 
 $solver = new Day11_Monkeys;
 $solver->playNRounds(20);
+displayResult($solver->getTwoMostActiveMonkeys());
+
+$solver->playNRounds(10000, false);
 displayResult($solver->getTwoMostActiveMonkeys());
 
 

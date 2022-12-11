@@ -16,19 +16,14 @@ class Monkey
 
     public int $nbItemsInspected = 0;
 
-    public function inspectNextItem(): int|false
+    public function inspectNextItem(false|int $commonMultiple): int|false
     {
         if (empty($this->items)) return false;
 
-        // echo "\t J'inspecte l'item " . $this->items[0] . "\n"; 
-
         $this->nbItemsInspected++;
         $item = $this->items[0];
-        // echo "J'inspecte un object de valeur $item\n";
         $item = $this->inspect($item);
-        // echo "Nouvelle valeur : $item\n";
-        $item = $this->getBored($item);
-        // echo "I'm bored : $item\n";
+        $item = $this->getBored($item, $commonMultiple);
         $this->items[0] = $item;
         return $this->testItem($item) ? $this->sendToIfTrue : $this->sendToIfFalse;
     }
@@ -40,9 +35,10 @@ class Monkey
         return $new;
     }
 
-    private function getBored($item): int
+    private function getBored(int $item, false|int $commonMultiple): int
     {
-        return floor($item / 3);
+        if(!$commonMultiple) return floor($item / 3);
+        return $item % $commonMultiple;
     }
 
     public function testItem($item): bool
