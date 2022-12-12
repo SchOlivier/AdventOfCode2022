@@ -7,6 +7,7 @@ class Position
     public function __construct(
         public int $X,
         public int $Y,
+        public mixed $value = null
     ) {
     }
 

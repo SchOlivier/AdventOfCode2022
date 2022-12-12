@@ -13,16 +13,14 @@ use App\Solvers\Day08_TreeHouse;
 use App\Solvers\Day09_RopeMovement;
 use App\Solvers\Day10_CRT;
 use App\Solvers\Day11_Monkeys;
+use App\Solvers\Day12_Graph;
 
 require 'classLoader.php';
 
+$solver = new Day12_Graph;
+displayResult($solver->findShortestPathWithFixedStartPoint());
+displayResult($solver->findShortestPathFromLowestElevation());
 
-$solver = new Day11_Monkeys;
-$solver->playNRounds(20);
-displayResult($solver->getTwoMostActiveMonkeys());
-
-$solver->playNRounds(10000, false);
-displayResult($solver->getTwoMostActiveMonkeys());
 
 
 function displayResult($result)
