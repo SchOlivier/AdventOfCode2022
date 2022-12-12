@@ -34,7 +34,7 @@ class Day12_Graph
         return $shortestDistance;
     }
 
-    private function calculateDistances(): int
+    private function calculateDistances(): void
     {
         $this->mapGraph();
 
@@ -53,7 +53,6 @@ class Day12_Graph
                 }
             }
         }
-        return 0;
     }
 
     private function mapGraph(): void
