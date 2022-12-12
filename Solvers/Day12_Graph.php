@@ -80,7 +80,7 @@ class Day12_Graph
                     $this->lowestPoints[] = new Position($i, $j);
                 }
                 $this->map[$i][$j] = ord($char);
-                $this->nodes[$i][$j] = new Node(position: $position);
+                $this->nodes[$i][$j] = new Node();
             }
             $i++;
         }
