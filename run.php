@@ -14,13 +14,14 @@ use App\Solvers\Day09_RopeMovement;
 use App\Solvers\Day10_CRT;
 use App\Solvers\Day11_Monkeys;
 use App\Solvers\Day12_Graph;
+use App\Solvers\Day13_distressSignal;
 
 require 'classLoader.php';
 
-$solver = new Day12_Graph;
-displayResult($solver->findShortestPathWithFixedStartPoint());
-displayResult($solver->findShortestPathFromLowestElevation());
+$solver = new Day13_distressSignal;
 
+displayResult($solver->findCorrectPackets());
+displayResult($solver->getDistressSignalKey());
 
 
 function displayResult($result)
