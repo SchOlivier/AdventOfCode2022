@@ -15,13 +15,13 @@ use App\Solvers\Day10_CRT;
 use App\Solvers\Day11_Monkeys;
 use App\Solvers\Day12_Graph;
 use App\Solvers\Day13_distressSignal;
+use App\Solvers\Day14_sand;
 
 require 'classLoader.php';
 
-$solver = new Day13_distressSignal;
-
-displayResult($solver->findCorrectPackets());
-displayResult($solver->getDistressSignalKey());
+$solver = new Day14_sand;
+displayResult($solver->countUnitsOfSand());
+displayResult($solver->countUnitsOfSand(false));
 
 
 function displayResult($result)
