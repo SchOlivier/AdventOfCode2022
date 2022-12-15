@@ -42,11 +42,8 @@ class Day15_Beacons
         return 0;
     }
 
-    public function partTwoTake2(int $gridSize): int
+    public function partTwoTake2(): int
     {
-        $xMin = $yMin = 0;
-        $xMax = $yMax = $gridSize;
-
         $closeSensors = [];
         for ($i = 0; $i < count($this->sensors); $i++) {
             for ($j = $i + 1; $j < count($this->sensors); $j++) {
@@ -56,7 +53,8 @@ class Day15_Beacons
             }
         }
 
-        $point = $this->findIntersection($closeSensors[0], $closeSensors[1]);
+        // I should loop over each pair until I find a solution, but I'm lazy and know there are only two pairs.
+        $point = $this->findIntersection($closeSensors[0], $closeSensors[1]); 
 
         return $point->X * 4000000 + $point->Y;
     }

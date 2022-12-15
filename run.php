@@ -21,19 +21,19 @@ use App\Solvers\Day15_Beacons;
 require 'classLoader.php';
 
 $solver = new Day15_Beacons;
-displayResult($solver->partOne(2000000, 4000000));
+displayResult($solver->partOne(2000000));
 
 $start = hrtime(true);
 displayResult($solver->partTwo(4000000)); // 1st try : 16.4s
 $end = hrtime(true);
 $time = ($end - $start) / 1e6; // ms
-echo "\nTime taken : {$time}ms.\n";
+echo "Time taken : {$time}ms.\n";
 
 $start = hrtime(true);
-displayResult($solver->partTwoTake2(4000000)); // 2nd try 0.17ms \o/
+displayResult($solver->partTwoTake2()); // 2nd try 0.17ms \o/
 $end = hrtime(true);
 $time = ($end - $start) / 1e6; // ms
-echo "\nTime taken : {$time}ms.\n";
+echo "Time taken : {$time}ms.\n";
 
 
 
