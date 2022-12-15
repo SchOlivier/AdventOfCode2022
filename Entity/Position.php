@@ -13,6 +13,10 @@ class Position
 
     public function __toString()
     {
-        return $this->X . "_" . $this->Y;
+        $string = $this->X . "_" . $this->Y;
+        if(!is_null($this->value)){
+            $string .= " : " . $this->value;
+        }
+        return $string;
     }
 }
