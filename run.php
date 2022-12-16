@@ -17,27 +17,9 @@ use App\Solvers\Day12_Graph;
 use App\Solvers\Day13_distressSignal;
 use App\Solvers\Day14_sand;
 use App\Solvers\Day15_Beacons;
+use App\Solvers\Day16_valves;
 
 require 'classLoader.php';
 
-$solver = new Day15_Beacons;
-displayResult($solver->partOne(2000000));
-
-$start = hrtime(true);
-displayResult($solver->partTwo(4000000)); // 1st try : 16.4s
-$end = hrtime(true);
-$time = ($end - $start) / 1e6; // ms
-echo "Time taken : {$time}ms.\n";
-
-$start = hrtime(true);
-displayResult($solver->partTwoTake2()); // 2nd try 0.17ms \o/
-$end = hrtime(true);
-$time = ($end - $start) / 1e6; // ms
-echo "Time taken : {$time}ms.\n";
-
-
-
-function displayResult($result)
-{
-    echo "Result : $result\n";
-}
+$solver = new Day16_valves;
+echo "Max Pressure : " . $solver->partOne() . "\n";
