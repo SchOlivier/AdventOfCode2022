@@ -19,4 +19,9 @@ class Position
         }
         return $string;
     }
+
+    public function getRelativePosition(int $dx, int $dy)
+    {
+        return new Position($this->X + $dx, $this->Y + $dy);
+    }
 }
