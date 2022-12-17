@@ -4,6 +4,7 @@ namespace App\Solvers;
 
 use App\Entity\Position;
 use App\Entity\Valve;
+use Generator;
 
 class Day16_valves
 {
@@ -33,15 +34,6 @@ class Day16_valves
         $seenValves = ['AA'];
         return $this->nextValve('AA', 30, $seenValves, 0);
     }
-
-    // public function partTwo(): int
-    // {
-    //     $this->cache = [];
-    //     $this->distances = $this->getDistanceBetweenUsefulValves();
-    //     $seenValves = ['AA'];
-    //     return $this->nextValve('AA', 30, $seenValves, 0);
-    // }
-
 
     private function nextTimeStep(string $valve, array $usefulValves, int $remainingTime, string $cacheKey)
     {
@@ -91,7 +83,6 @@ class Day16_valves
     {
         $pressure = 0;
         if (!in_array($valve, $seenValves)) {
-            $remainingTime--;
             $pressure += $this->valves[$valve]['value'] * $remainingTime;
             $seenValves[] = $valve;
             sort($seenValves);
@@ -137,7 +128,7 @@ class Day16_valves
         $this->usefulValves = array_flip($usefulValves);
     }
 
-    private function getDistanceBetweenUsefulValves()
+    private function getDistanceBetweenUsefulValves(): array
     {
         $valves = array_flip($this->usefulValves);
         $valves[] = 'AA';
@@ -164,7 +155,7 @@ class Day16_valves
 
             $seen[] = $currentValve;
 
-            if (in_array($v2, $this->valves[$currentValve]['neighbours'])) return $currentDistance + 1;
+            if (in_array($v2, $this->valves[$currentValve]['neighbours'])) return $currentDistance + 2;
 
             foreach ($this->valves[$currentValve]['neighbours'] as $n) {
                 if (!in_array($n, $seen)) $queue[] = ['name' => $n, 'distance' => $currentDistance + 1];
@@ -172,5 +163,133 @@ class Day16_valves
         }
 
         return -1;
+    }
+
+    public function partTwo(): int
+    {
+        $maxPressure = 0;
+
+        $valves = $this->getDistanceBetweenUsefulValves();
+        $this->displayDistances($valves);
+
+        foreach ($this->getAllPath($valves) as $i => $path) {
+
+            $seenValves = array_flip($path['seen']);
+            unset($seenValves['AA']);
+            $remainingValves = $this->removeValvesFromDistances($valves, $seenValves);
+            $remainingPath = $this->getBestRemainingPath($remainingValves);
+
+            if($path['pressure'] + $remainingPath['pressure'] > $maxPressure){
+                $maxPressure = $path['pressure'] + $remainingPath['pressure'];
+                echo "------------------\n";
+                echo "-New best path : -\n";
+                echo "------------------\n";
+                echo "Path 1 : [" . implode(", ", $path['seen']) . "]\n";
+                echo "Path 2 : [" . implode(", ", $remainingPath['seen']) . "]\n";
+                echo "Pressure : $maxPressure\n";
+            }
+
+            if ((int)$i % 1000 ==  0) {
+                echo "\n--- $i ---\n";
+                echo "\tPressure : " . $path['pressure'] . "\n";
+                echo "\t[" . implode(", ", $path['seen']) . "]\n";
+                echo "RemainingPath :\n";
+                echo "\tPressure : " . $remainingPath['pressure'] . "\n";
+                echo "\t[" . implode(", ", $remainingPath['seen']) . "]\n";
+            }
+
+        }
+
+        return $maxPressure;
+    }
+
+    private function displayDistances(array $distances): void
+    {
+        $allValves = array_keys($distances);
+
+        echo "\n   ";
+        foreach ($allValves as $v) {
+            echo $v . " ";
+        }
+        echo "\n";
+
+        for ($i = 0; $i < count($allValves); $i++) {
+            echo $allValves[$i] . " ";
+            for ($j = 0; $j < count($allValves); $j++) {
+                if ($i <= $j) {
+                    echo "|  ";
+                } else {
+                    echo str_pad($distances[$allValves[$i]][$allValves[$j]], 3);
+                }
+            }
+            echo "\n";
+        }
+    }
+
+    private function getAllPath(array $valves): Generator
+    {
+        $stack = [['valve' => 'AA', 'time' => 26, 'seen' => [], 'pressure' => 0]];
+        while (!empty($stack)) {
+            $current = array_pop($stack);
+            $current['pressure'] += $this->valves[$current['valve']]['value'] * $current['time'];
+            $current['seen'][] = $current['valve'];
+            $nexts = $this->getNextValves($valves, $current);
+            if (empty($nexts)) {
+                yield $current;
+            } else {
+                foreach ($nexts as $next) {
+                    $stack[] = $next;
+                }
+            }
+        }
+    }
+
+    private function getBestRemainingPath(array $valves): array
+    {
+        $bestPath = ['valve' => 'AA', 'time' => 26, 'seen' => [], 'pressure' => 0];
+        $stack = [$bestPath];
+
+        while (!empty($stack)) {
+            $current = array_pop($stack);
+            $current['pressure'] += $this->valves[$current['valve']]['value'] * $current['time'];
+            $current['seen'][] = $current['valve'];
+            $nexts = $this->getNextValves($valves, $current);
+            if (empty($nexts) && $bestPath['pressure'] < $current['pressure']) {
+                $bestPath = $current;
+            } else {
+                foreach ($nexts as $next) {
+                    $stack[] = $next;
+                }
+            }
+        }
+
+        return $bestPath;
+    }
+
+    private function getNextValves(array $valves, array $current): array
+    {
+        $nexts = [];
+
+        foreach ($valves[$current['valve']] as $to => $distance) {
+            if (!in_array($to, $current['seen']) && $current['time'] - $distance > 0) {
+                $nexts[] = [
+                    'valve' => $to,
+                    'time' => $current['time'] - $distance,
+                    'seen' => $current['seen'],
+                    'pressure' => $current['pressure']
+                ];
+            }
+        }
+
+        return $nexts;
+    }
+
+    private function removeValvesFromDistances(array $distances, array $valves)
+    {
+        $distances = array_diff_key($distances, $valves);
+        foreach ($distances as &$tos) {
+            $tos = array_diff_key($tos, $valves);
+        }
+        return $distances;
     }
 }

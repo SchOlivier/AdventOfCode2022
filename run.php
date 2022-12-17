@@ -21,13 +21,18 @@ use App\Solvers\Day16_valves;
 
 require 'classLoader.php';
 
-$solver = new Day16_valves;
-$start = hrtime(true);
-echo "Max Pressure : " . $solver->partOne() . "\n"; // success, result : 2080
-echo "Time taken : " . (hrtime(true) - $start)/1e6 . "ms\n"; // time : 1050ms
 
 
-$start = hrtime(true);
 $solver = new Day16_valves;
-echo "Max Pressure : " . $solver->partOneTakeTwo() . "\n";
-echo "Time taken : " . (hrtime(true) - $start)/1e6 . "ms\n"; // time : 290ms
+
+// $start = hrtime(true);
+// echo "Max Pressure : " . $solver->partOne() . "\n"; // success, result : 2080
+// echo "Time taken : " . (hrtime(true) - $start)/1e6 . "ms\n"; // time : 1050ms
+
+
+// $start = hrtime(true);
+// $solver = new Day16_valves;
+// echo "Max Pressure : " . $solver->partOneTakeTwo() . "\n";
+// echo "Time taken : " . (hrtime(true) - $start)/1e6 . "ms\n"; // time : 290ms
+
+$solver->partTwo();
