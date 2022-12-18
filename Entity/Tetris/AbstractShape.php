@@ -6,8 +6,8 @@ use App\Entity\Position;
 
 abstract class AbstractShape {
 
-    const RIGHT = self::RIGHT;
-    const LEFT = self::LEFT;
+    const RIGHT = '>';
+    const LEFT = '<';
 
     public array $shape;
     public int $height;

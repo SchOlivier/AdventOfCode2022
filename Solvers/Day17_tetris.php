@@ -14,6 +14,8 @@ class Day17_tetris
 {
     const freshLine = [-1 => '|', 7 => '|'];
     const DATA_PATH = __DIR__ . '/../assets/17-tetris';
+    const CREST_FILE = __DIR__ . '/../assets/tmp.csv';
+    const DOUBLONS_FILE = __DIR__ . '/../assets/doublons.csv';
 
     const RIGHT = '>';
     const LEFT = '<';
@@ -26,10 +28,9 @@ class Day17_tetris
     private int $windCounter;
     private bool $firstArraySlice = true;
 
-    public function partOne()
+    public function stackRocks(int $limit)
     {
         // init
-        $limit = 1e5;
         $this->rocks = [];
         $this->height = 0;
         $this->rocks[-1][-1] = $this->rocks[-1][7] = '+';
@@ -39,37 +40,64 @@ class Day17_tetris
         $this->wind = str_split(file_get_contents(self::DATA_PATH));
         $this->windMod = count($this->wind);
         $this->windCounter = 0;
+        // $crestFile = fopen(self::CREST_FILE, 'w');
+        // $doublonsFile = fopen(self::DOUBLONS_FILE, 'w');
+        // fwrite($crestFile, "counter ; current height ; buffer height ; total height ; crest[0-6]\n");
+        // fwrite($doublonsFile, "counter ; current height ; buffer height ; total height ; crest[0-6]\n");
+        $crestLines = [];
+
+        echo "\n windMod : " . $this->windMod . "\n";
+
+        $baseShapes = [
+            new HLine(new Position(0, 0)),
+            new Plus(new Position(0, 0)),
+            new MirroredL(new Position(0, 0)),
+            new VLine(new Position(0, 0)),
+            new Square(new Position(0, 0))
+        ];
+
 
         // Starting Tetris
         $count = 0;
         while (true) {
-            $shape = new HLine(new Position(2, $this->height + 3));
-            $this->dropShape(shape: $shape);
-            $count++;
-            if ($count == $limit) break;
 
-            $shape = new Plus(new Position(2, $this->height + 3));
-            $this->dropShape(shape: $shape);
-            $count++;
-            if ($count == $limit) break;
+            for ($i = 0; $i < 5; $i++){
+                if($count %  (5*$this->windMod) === 0){
+                    
+                    // echo "iteration $count - current height : " . $this->height + $this->buffer . "\n";
 
-            $shape = new MirroredL(new Position(2, $this->height + 3));
-            $this->dropShape(shape: $shape);
-            $count++;
-            if ($count == $limit) break;
+                    $crest = [];
+                    $yMin = $this->height;
+                    for($x = 0; $x < 7; $x++){
+                        $y = $this->height;
+                        while(!isset($this->rocks[$y][$x])){
+                            $y--;
+                        }
+                        $crest[] = $y;
+                        $yMin = min($yMin, $y);
+                    }
+                    for($j = 0; $j < 7 ; $j++){
+                        $crest[$j] -= $yMin;
+                    }
+                    echo "Ligne de crête : " . implode('; ', $crest) . "\n";
+                    // fwrite($crestFile, $count . ";" . $this->height . ";". $this->buffer . ";" . $this->height + $this->buffer .";" .implode(';', $crest) . "\n");
 
-            $shape = new VLine(new Position(2, $this->height + 3));
-            $this->dropShape(shape: $shape);
-            $count++;
-            if ($count == $limit) break;
+                    if(in_array($crest, $crestLines)){
+                        echo "-------------\n";
+                        echo "- Doublon ! -\n";
+                        echo "-------------\n";
+                        echo "Count : $count, currentheight : " . $this->height . ", buffer : " . $this->buffer . ", Total Height : " . $this->height + $this->buffer . "\n";
+                        // fwrite($doublonsFile, $count . ";" . $this->height . ";". $this->buffer . ";" . $this->height + $this->buffer .";" .implode(';', $crest) . "\n");
+                    }
+                    $crestLines[] = $crest;
+                }
+                if ($count == $limit) break(2);
 
-            $shape = new Square(new Position(2, $this->height + 3));
-            $this->dropShape(shape: $shape);
-            $count++;
-            if ($count == $limit) break;
 
-            if ($count % 10000 == 0) {
-                echo "iteration $count - current height : " . $this->height + $this->buffer . "\n";
+                $shape = $baseShapes[$i];
+                $shape->position = new Position(2, $this->height + 3);
+                $this->dropShape(shape: $shape);
+                $count++;
             }
         }
 
@@ -111,7 +139,6 @@ class Day17_tetris
                 }
             }
             if ($fullLine) {
-                // $this->displayRocks();
                 $this->buffer += $y;
                 $this->height = $this->height - $y;
 
@@ -122,8 +149,24 @@ class Day17_tetris
                     $this->rocks = array_slice($this->rocks, $y);
                 }
 
+                // $emptyFirstLine = true;
+                // for($i = 0; $i < 7; $i++){
+                //     if(isset($this->rocks[1][$x])){
+                //         $emptyFirstLine = false;
+                //         break;
+                //     }
+                // }
+
+                // if($emptyFirstLine){
+                //     echo "j'ai reset le board !! \n";
+                //     $this->displayRocks();
+                //     die();
+                // }
+                
                 break;
             }
+
+
         }
     }
 

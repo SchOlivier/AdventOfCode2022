@@ -24,6 +24,7 @@ require 'classLoader.php';
 
 $start = hrtime(true);
 $solver = new Day17_tetris;
-$solver->partOne();
+$solver->stackRocks(4100200);
+
 $end = hrtime(true);
 echo "time taken : " . ($end - $start)/1e6 . "ms\n";
