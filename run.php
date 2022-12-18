@@ -19,12 +19,13 @@ use App\Solvers\Day14_sand;
 use App\Solvers\Day15_Beacons;
 use App\Solvers\Day16_valves;
 use App\Solvers\Day17_tetris;
+use App\Solvers\Day18_lava;
 
 require 'classLoader.php';
 
 $start = hrtime(true);
-$solver = new Day17_tetris;
-$solver->stackRocks(4100200);
+$solver = new Day18_lava;
+echo "real surface area : " . $solver->partTwo() . "\n";
 
 $end = hrtime(true);
 echo "time taken : " . ($end - $start)/1e6 . "ms\n";
