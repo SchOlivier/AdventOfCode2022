@@ -20,12 +20,14 @@ use App\Solvers\Day15_Beacons;
 use App\Solvers\Day16_valves;
 use App\Solvers\Day17_tetris;
 use App\Solvers\Day18_lava;
+use App\Solvers\Day19_geodes;
 
 require 'classLoader.php';
 
-$start = hrtime(true);
-$solver = new Day18_lava;
-echo "real surface area : " . $solver->partTwo() . "\n";
+// $start = hrtime(true);
+$solver = new Day19_geodes;
+// echo "Quality sum : " . $solver->partOne(24) . "\n";
+echo "Product of 3 first blueprints : " . $solver->partTwo(32) . "\n";
 
-$end = hrtime(true);
-echo "time taken : " . ($end - $start)/1e6 . "ms\n";
+// $end = hrtime(true);
+// echo "time taken : " . ($end - $start)/1e6 . "ms\n";
