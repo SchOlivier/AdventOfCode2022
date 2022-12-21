@@ -1,11 +1,12 @@
 <?php
 
 use App\Solvers\Day20_mixing;
+use App\Solvers\Day21_monkeys;
 
 require 'classLoader.php';
 
 // $start = hrtime(true);
-$solver = new Day20_mixing;
+$solver = new Day21_monkeys;
 // echo "Quality sum : " . $solver->partOne(24) . "\n";
 $solver->partOne()  ;
 $solver->partTwo()  ;
