@@ -38,12 +38,30 @@ class Day21_monkeys
     {
         $this->readInput();
         $i = 0;
+        $step = 1e12;
         $monkey1 = $this->monkeys['root'][0];
         $monkey2 = $this->monkeys['root'][2];
-        while($this->getMonkeyValue($monkey1, $i) !== $this->getMonkeyValue($monkey2, $i)){
-            $i++;
+
+        $v1 = $this->getMonkeyValue($monkey1, $i);
+        $v2 = $this->getMonkeyValue($monkey2, $i);
+
+        echo "$i : $v1 - $v2\n";
+
+        while ($v1 !== $v2) {
+            while ($v1 > $v2) {
+                echo "$i\n";
+                $i += $step;
+                $v1 = $this->getMonkeyValue($monkey1, $i);
+            }
+            $step /= 10;
+            while ($v1 < $v2) {
+                echo "$i\n";
+                $i -= $step;
+                $v1 = $this->getMonkeyValue($monkey1, $i);
+            }
+            $step /= 10;
         }
-        echo $i . "\n";
+        echo "$i : $v1 - $v2\n";
     }
 
     private function getMonkeyValue(string $name, int|false $humnValue = false)
@@ -75,4 +93,3 @@ class Day21_monkeys
         return $value;
     }
 }
-
