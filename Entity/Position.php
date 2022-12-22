@@ -22,6 +22,12 @@ class Position
 
     public function getRelativePosition(int $dx, int $dy)
     {
-        return new Position($this->X + $dx, $this->Y + $dy);
+        return new Position($this->X + $dx, $this->Y + $dy, $this->value);
+    }
+
+    public function moveBy(int $dx, int $dy)
+    {
+        $this->X += $dx;
+        $this->Y += $dy;
     }
 }
